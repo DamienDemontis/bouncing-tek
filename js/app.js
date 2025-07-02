@@ -30,10 +30,21 @@ function update() {
         //Draw the canvas background
         ctx.fillStyle = '#000';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        //Draw DVD Logo and his background
+        
+        // Save the current state
+        ctx.save();
+        
+        // Draw colored rectangle first
         ctx.fillStyle = logoColor;
         ctx.fillRect(dvd.x, dvd.y, dvd.img.width*scale, dvd.img.height*scale);
+        
+        // Use destination-in to keep only the parts where the logo exists
+        ctx.globalCompositeOperation = 'destination-in';
         ctx.drawImage(dvd.img, dvd.x, dvd.y, dvd.img.width*scale, dvd.img.height*scale);
+        
+        // Restore the state
+        ctx.restore();
+        
         //Move the logo
         dvd.x+=dvd.xspeed;
         dvd.y+=dvd.yspeed;
